@@ -53,7 +53,7 @@ export default function FloatingNav() {
     { id: "contact", label: "Contact" },
   ];
 
-  
+
   return (
     <div className="w-full flex justify-center">
       <motion.nav
