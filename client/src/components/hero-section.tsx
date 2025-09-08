@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -12,7 +13,6 @@ export default function HeroSection() {
         setDisplayText(fullText.slice(0, i));
         i++;
       } else {
-        // Reset after a pause
         setTimeout(() => {
           i = 0;
         }, 2000);
@@ -22,28 +22,19 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleDownloadResume = async () => {
-    try {
-      const response = await fetch('/api/resume/download');
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Shubham_Gehlod_Resume.pdf';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      }
-    } catch (error) {
-      console.error('Error downloading resume:', error);
-    }
+  // ✅ No backend call, just frontend download
+  const handleDownloadResume = () => {
+    const link = document.createElement("a");
+    link.href = "/Shubham_Gehlod_Resume.pdf"; // from public folder
+    link.download = "Shubham_Gehlod_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    contactSection?.scrollIntoView({ behavior: 'smooth' });
+    const contactSection = document.getElementById("contact");
+    contactSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -59,6 +50,7 @@ export default function HeroSection() {
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center">
+          {/* Name */}
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
@@ -72,6 +64,7 @@ export default function HeroSection() {
             </h2>
           </motion.div>
           
+          {/* Typewriter */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -83,6 +76,7 @@ export default function HeroSection() {
             </p>
           </motion.div>
           
+          {/* Subtitle */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -93,6 +87,7 @@ export default function HeroSection() {
             </p>
           </motion.div>
           
+          {/* Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -118,8 +113,8 @@ export default function HeroSection() {
           </motion.div>
         </div>
       </div>
-      
-      {/* Floating geometric shapes */}
+
+      {/* Floating Shapes */}
       <motion.div
         className="absolute top-20 left-20 w-20 h-20 border-2 border-primary rotate-45 opacity-30"
         animate={{ y: [-20, 20, -20] }}

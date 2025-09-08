@@ -2,15 +2,16 @@ import { motion } from "framer-motion";
 
 interface ProjectCardProps {
   title: string;
-  description: string;
+  description: string;  
   image: string;
   tags: string[];
   category: string;
   categoryColor: string;
   delay?: number;
+  liveUrl?: string;
 }
 
-function ProjectCard({ title, description, image, tags, category, categoryColor, delay = 0 }: ProjectCardProps) {
+function ProjectCard({ title, description, image, tags, category, categoryColor,liveUrl, delay = 0 }: ProjectCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -49,7 +50,12 @@ function ProjectCard({ title, description, image, tags, category, categoryColor,
         </div>
         
         <div className="flex space-x-4">
-          <button 
+           {liveUrl && (
+            <a 
+              href={liveUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+          // <button 
             className={`flex-1 ${
               categoryColor.includes('primary') ? 'bg-primary/20 hover:bg-primary text-primary hover:text-primary-foreground' :
               categoryColor.includes('secondary') ? 'bg-secondary/20 hover:bg-secondary text-secondary hover:text-secondary-foreground' :
@@ -58,8 +64,10 @@ function ProjectCard({ title, description, image, tags, category, categoryColor,
             data-testid={`button-view-${title.toLowerCase().replace(/\s+/g, '-')}`}
           >
             <i className="fas fa-eye mr-2"></i>View
-          </button>
-          <button 
+            </a>
+           )}
+          {/* </button> */}
+          {/* <button 
             className={`flex-1 border ${
               categoryColor.includes('primary') ? 'border-primary/30 hover:border-primary hover:bg-primary/10' :
               categoryColor.includes('secondary') ? 'border-secondary/30 hover:border-secondary hover:bg-secondary/10' :
@@ -68,7 +76,7 @@ function ProjectCard({ title, description, image, tags, category, categoryColor,
             data-testid={`button-code-${title.toLowerCase().replace(/\s+/g, '-')}`}
           >
             <i className="fab fa-github mr-2"></i>Code
-          </button>
+          </button> */}
         </div>
       </div>
     </motion.div>
@@ -83,7 +91,8 @@ export default function ProjectsSection() {
       image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
       tags: ["React.js", "Node.js", "MongoDB", "Express.js"],
       category: "MERN Stack",
-      categoryColor: "bg-primary/20 text-primary"
+      categoryColor: "bg-primary/20 text-primary",
+      liveUrl: "https://pos.samyotech.in", 
     },
     {
       title: "Inventory Management",
@@ -91,7 +100,8 @@ export default function ProjectsSection() {
       image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
       tags: ["React.js", "Node.js", "MongoDB", "Express.js"],
       category: "Full Stack",
-      categoryColor: "bg-secondary/20 text-secondary"
+      categoryColor: "bg-secondary/20 text-secondary",
+      liveUrl: "http://ims.samyotech.in",
     },
     {
       title: "AI Chatbot & Agent",
